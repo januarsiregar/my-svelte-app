@@ -1,9 +1,9 @@
 <script>
-  import { push } from 'svelte-spa-router';
+  import { goto } from '@mateothegreat/svelte5-router';
 
-  let items = [];
-  let newItem = '';
-  let editingIndex = null;
+  let items = $state([]);
+  let newItem = $state('');
+  let editingIndex = $state(null);
 
   function addItem() {
     if (newItem.trim()) {
@@ -27,18 +27,18 @@
   }
 
   function goBack() {
-    push('/dashboard');
+    goto('/dashboard');
   }
 </script>
 
 <div class="mb-3">
-  <button class="btn btn-secondary btn-sm" on:click={goBack}>← Back to Dashboard</button>
+  <button class="btn btn-secondary btn-sm" onclick={goBack}>← Back to Dashboard</button>
 </div>
 
 <h2>📝 CRUD Page</h2>
 <div class="input-group mb-3">
   <input type="text" class="form-control" placeholder="Tambah/Edit item..." bind:value={newItem} />
-  <button class="btn btn-primary" on:click={addItem}>{editingIndex !== null ? 'Update' : 'Tambah'}</button>
+  <button class="btn btn-primary" onclick={addItem}>{editingIndex !== null ? 'Update' : 'Tambah'}</button>
 </div>
 
 <ul class="list-group">
@@ -46,8 +46,8 @@
     <li class="list-group-item d-flex justify-content-between">
       {item}
       <div>
-        <button class="btn btn-sm btn-warning me-2" on:click={() => editItem(i)}>Edit</button>
-        <button class="btn btn-sm btn-danger" on:click={() => deleteItem(i)}>Hapus</button>
+        <button class="btn btn-sm btn-warning me-2" onclick={() => editItem(i)}>Edit</button>
+        <button class="btn btn-sm btn-danger" onclick={() => deleteItem(i)}>Hapus</button>
       </div>
     </li>
   {/each}

@@ -1,19 +1,19 @@
 <script>
-  import { push } from 'svelte-spa-router';
+  import { goto } from '@mateothegreat/svelte5-router';
 
-  let users = [
+  let users = $state([
     { id: 1, name: 'Budi', email: 'budi@mail.com' },
     { id: 2, name: 'Siti', email: 'siti@mail.com' },
     { id: 3, name: 'Andi', email: 'andi@mail.com' }
-  ];
+  ]);
 
   function goBack() {
-    push('/dashboard');
+    goto('/dashboard');
   }
 </script>
 
 <div class="mb-3">
-  <button class="btn btn-secondary btn-sm" on:click={goBack}>← Back to Dashboard</button>
+  <button class="btn btn-secondary btn-sm" onclick={goBack}>← Back to Dashboard</button>
 </div>
 
 <h2>📋 User List</h2>

@@ -1,34 +1,25 @@
 <script>
-  import { onMount } from 'svelte';
-  import { push, replace } from 'svelte-spa-router';
+  import { goto } from '@mateothegreat/svelte5-router';
   import { isLoggedIn } from '../auth.js';
-  
-  let username = '';
-  let password = '';
-  let isLoading = false;
-  let errorMessage = '';
 
-  // Check if already logged in on component mount
-  onMount(() => {
-    if (isLoggedIn()) {
-      console.log('User already logged in, redirecting to dashboard');
-      replace('/dashboard');
-    }
-  });
+  let username = $state('');
+  let password = $state('');
+  let isLoading = $state(false);
+  let errorMessage = $state('');
 
   async function handleLogin() {
     isLoading = true;
     errorMessage = '';
-    
+
     try {
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 500));
-      
+
       if (username === 'admin' && password === 'admin') {
         localStorage.setItem('auth', 'true');
         localStorage.setItem('username', username);
         console.log('Login successful, navigating to dashboard');
-        push('/dashboard');
+        goto('/dashboard');
       } else {
         errorMessage = 'Invalid username or password!';
       }
@@ -59,15 +50,15 @@
           </div>
         {/if}
         
-        <form on:submit|preventDefault={handleLogin}>
+        <form onsubmit={(e) => { e.preventDefault(); handleLogin(); }}>
           <div class="mb-3">
             <label class="form-label" for="username">Username</label>
-            <input 
+            <input
               id="username"
-              type="text" 
-              class="form-control" 
+              type="text"
+              class="form-control"
               bind:value={username}
-              on:keydown={handleKeydown}
+              onkeydown={handleKeydown}
               disabled={isLoading}
               placeholder="Enter username"
               required
@@ -76,12 +67,12 @@
           </div>
           <div class="mb-3">
             <label class="form-label" for="password">Password</label>
-            <input 
+            <input
               id="password"
-              type="password" 
-              class="form-control" 
+              type="password"
+              class="form-control"
               bind:value={password}
-              on:keydown={handleKeydown}
+              onkeydown={handleKeydown}
               disabled={isLoading}
               placeholder="Enter password"
               required

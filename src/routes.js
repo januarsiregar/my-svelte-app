@@ -1,27 +1,17 @@
-// @ts-ignore
+// src/routes.js - Using proper navigation
 import Login from './pages/Login.svelte';
-// @ts-ignore
 import Dashboard from './pages/Dashboard.svelte';
-// @ts-ignore
 import Crud from './pages/Crud.svelte';
-// @ts-ignore
-import List from './pages/List.svelte'
-import { isLoggedIn } from './auth.js'
+import List from './pages/List.svelte';
+import { isLoggedIn } from './auth.js';
 
-console.log({ Login, Dashboard, Crud, List });
-
-export default {
+const routes = {
   '/': Login,
-  '/dashboard': {
-    component: Dashboard,
-    conditions: [isLoggedIn]
-  },
-  '/crud': {
-    component: Crud,
-    conditions: [isLoggedIn]
-  },
-  '/list': {
-    component: List,
-    conditions: [isLoggedIn]
-  },
-}
+  '/login': Login,
+  '/dashboard': Dashboard,
+  '/crud': Crud,
+  '/list': List,
+  '*': Login
+};
+
+export default routes;

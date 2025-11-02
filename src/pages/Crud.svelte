@@ -1,4 +1,6 @@
 <script>
+  import { push } from 'svelte-spa-router';
+
   let items = [];
   let newItem = '';
   let editingIndex = null;
@@ -23,7 +25,15 @@
   function deleteItem(i) {
     items = items.filter((_, index) => index !== i);
   }
+
+  function goBack() {
+    push('/dashboard');
+  }
 </script>
+
+<div class="mb-3">
+  <button class="btn btn-secondary btn-sm" on:click={goBack}>← Back to Dashboard</button>
+</div>
 
 <h2>📝 CRUD Page</h2>
 <div class="input-group mb-3">

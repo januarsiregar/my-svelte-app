@@ -1,10 +1,20 @@
 <script>
+  import { push } from 'svelte-spa-router';
+
   let users = [
     { id: 1, name: 'Budi', email: 'budi@mail.com' },
     { id: 2, name: 'Siti', email: 'siti@mail.com' },
     { id: 3, name: 'Andi', email: 'andi@mail.com' }
   ];
+
+  function goBack() {
+    push('/dashboard');
+  }
 </script>
+
+<div class="mb-3">
+  <button class="btn btn-secondary btn-sm" on:click={goBack}>← Back to Dashboard</button>
+</div>
 
 <h2>📋 User List</h2>
 
